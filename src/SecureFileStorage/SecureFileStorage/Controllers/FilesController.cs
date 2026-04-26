@@ -11,12 +11,10 @@ namespace SecureFileStorage.Controllers
     public class FilesController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly FileService _service;
 
         public FilesController(IMediator mediator, FileService service)
         {
             _mediator = mediator;
-            _service = service;
         }
 
    
