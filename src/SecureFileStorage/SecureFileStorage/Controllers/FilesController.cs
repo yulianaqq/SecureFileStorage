@@ -12,14 +12,15 @@ namespace SecureFileStorage.Controllers
     {
         private readonly IMediator _mediator;
         private readonly FileService _service;
+        private readonly ILogger<FilesController> _logger;
 
-        public FilesController(IMediator mediator, FileService service)
+        public FilesController(IMediator mediator, FileService service, ILogger<FilesController> logger)
         {
             _mediator = mediator;
             _service = service;
+            _logger = logger;
         }
 
-   
         [HttpPost("upload")]
         public async Task<IActionResult> Upload(IFormFile file, CancellationToken ct)
         {
@@ -27,7 +28,6 @@ namespace SecureFileStorage.Controllers
             return Ok(id);
         }
 
-       
         [HttpGet]
         public async Task<IActionResult> GetAll(int page = 1, int pageSize = 10)
         {
@@ -39,7 +39,6 @@ namespace SecureFileStorage.Controllers
 
             return Ok(result);
         }
-
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Download(Guid id, CancellationToken ct)
