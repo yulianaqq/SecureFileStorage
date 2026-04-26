@@ -6,6 +6,7 @@ using SecureFileStorage.Services;
 using MediatR;
 using Serilog;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 
 
 Log.Logger = new LoggerConfiguration()
