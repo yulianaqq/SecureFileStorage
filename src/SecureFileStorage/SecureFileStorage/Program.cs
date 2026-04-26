@@ -1,9 +1,10 @@
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SecureFileStorage.Data;
+using SecureFileStorage.Middleware;
 using SecureFileStorage.Repositories;
 using SecureFileStorage.Repositories.Interfaces;
 using SecureFileStorage.Services;
-using MediatR;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -38,6 +39,8 @@ try
     app.UseSwaggerUI();
 
     app.UseHttpsRedirection();
+
+    app.UseMiddleware<ExceptionMiddleware>();
 
     app.MapControllers();
 
