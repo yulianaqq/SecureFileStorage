@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SecureFileStorage.Models;
+using Microsoft.EntityFrameworkCore.Design;
+
 
 namespace SecureFileStorage.Data
 {
