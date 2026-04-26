@@ -3,6 +3,8 @@ using SecureFileStorage.Data;
 using SecureFileStorage.Repositories;
 using SecureFileStorage.Repositories.Interfaces;
 using SecureFileStorage.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Serilog;
 
@@ -20,6 +22,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IFileRepository, FileRepository>();
 builder.Services.AddScoped<FileService>();
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
