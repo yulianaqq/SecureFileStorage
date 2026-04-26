@@ -1,11 +1,12 @@
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SecureFileStorage.Data;
-using SecureFileStorage.Middleware;
 using SecureFileStorage.Repositories;
 using SecureFileStorage.Repositories.Interfaces;
 using SecureFileStorage.Services;
+using MediatR;
 using Serilog;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -25,6 +26,9 @@ builder.Services.AddScoped<FileService>();
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -39,8 +43,6 @@ try
     app.UseSwaggerUI();
 
     app.UseHttpsRedirection();
-
-    app.UseMiddleware<ExceptionMiddleware>();
 
     app.MapControllers();
 
