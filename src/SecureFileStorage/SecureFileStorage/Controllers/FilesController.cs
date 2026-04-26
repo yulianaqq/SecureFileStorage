@@ -40,19 +40,18 @@ namespace SecureFileStorage.Controllers
             return Ok(result);
         }
 
-   
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Download(Guid id, CancellationToken ct)
         {
-            var (stream, file) = await _service.DownloadAsync(id, ct);
-
-            return File(stream, file.ContentType, file.OriginalName);
+            var result = await _mediator.Send(new DownloadFileQuery { Id = id }, ct);
+            return result;
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id, CancellationToken ct)
         {
-            await _service.DeleteAsync(id, ct);
+            await _mediator.Send(new DeleteFileCommand { Id = id }, ct);
             return NoContent();
         }
     }
